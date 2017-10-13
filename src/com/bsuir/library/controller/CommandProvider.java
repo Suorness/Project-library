@@ -1,28 +1,38 @@
 package com.bsuir.library.controller;
 
 import com.bsuir.library.controller.command.Command;
-import com.bsuir.library.controller.command.implantation.*;
+import com.bsuir.library.controller.command.implementation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.bsuir.library.controller.command.DesignationCommands.*;
+
+/**
+ * Provides access to the list of commands by text representation
+ */
 class CommandProvider {
     private Map<String, Command> commands = new HashMap<>();
 
     CommandProvider() {
-        commands.put("signUp",new SignUpCommand());
-        commands.put("logOut", new SignOut());
-        commands.put("signIn",new SingInCommand());
+        commands.put(SIGNUPCOMMAND.getName(),new SignUpCommand());
+        commands.put(LOGOUTCOMMAND.getName(), new SignOutCommand());
+        commands.put(SIGNINCOMMAND.getName(),new SignInCommand());
 
-        commands.put("add_book", new AddBookCommand());
-        commands.put("delBook", new DeleteBookCommand());
-        commands.put("search", new FindBookCommand());
-        commands.put("show_list", new BrowseBookCatalogCommand());
+        commands.put(ADDBOOKCOMMAND.getName(), new AddBookCommand());
+        commands.put(DELBOOKCMMAND.getName(), new DeleteBookCommand());
+        commands.put(SEACHBOOKCOOMMAND.getName(), new FindBookCommand());
+        commands.put(SHOWBOOKCOMMAND.getName(), new BrowseBookCatalogCommand());
 
 
 
     }
 
+    /**
+     *
+     * @param commandName Text representation of the command
+     * @return Command instance
+     */
     Command getCommand(String commandName) {
         Command command;
         command = commands.get(commandName);

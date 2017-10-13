@@ -10,24 +10,18 @@ import java.util.List;
 
 import static com.bsuir.library.view.Constant.FileNotFound;
 
+/**
+ * This is an object that provides information access to any type of database or storage mechanism.
+ * @see BookDAO
+ */
 public class FileBookDAO implements BookDAO {
     private static final String PATH = System.getProperty("user.dir")+"/Books.txt";
 
-    @Override
-    public boolean addBook(Book book) throws DAOException {
-        return false;
-    }
-
-    @Override
-    public Book findBook(String title) throws DAOException {
-        return null;
-    }
-
-    @Override
-    public boolean deleteBook(int idBook) throws DAOException {
-        return false;
-    }
-
+    /**
+     * @see BookDAO
+     * @return List of books
+     * @throws DAOException Thrown when in Data Access Object(DAO) error occurs.
+     */
     @Override
     public List<Book> getBookList() throws DAOException {
         ArrayList<Book> list = null;
@@ -49,6 +43,11 @@ public class FileBookDAO implements BookDAO {
         return list;
     }
 
+    /**
+     * @see BookDAO
+     * @param list List of books
+     * @throws DAOException Thrown when in Data Access Object(DAO) error occurs.
+     */
     @Override
     public void setBookList(ArrayList<Book> list) throws DAOException {
         try(FileOutputStream stream = new FileOutputStream(PATH);

@@ -2,7 +2,7 @@ package com.bsuir.library.dao.implementation;
 
 import com.bsuir.library.dao.UserDAO;
 import com.bsuir.library.dao.exception.DAOException;
-import com.bsuir.library.domain.User;
+import com.bsuir.library.domain.User.User;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,18 +10,17 @@ import java.util.ArrayList;
 import static com.bsuir.library.view.Constant.FileNameUserList;
 import static com.bsuir.library.view.Constant.FileNotFound;
 
+/**
+ * This is an object that provides information access to any type of database or storage mechanism.
+ * @see UserDAO
+ */
 public class FileUserDAO implements UserDAO {
     private static final String PATH = System.getProperty("user.dir")+"/"+ FileNameUserList.getName();
-    @Override
-    public boolean register(User user) throws DAOException {
-        return false;
-    }
-
-    @Override
-    public boolean logination(String login, String password) throws DAOException {
-        return false;
-    }
-
+    /**
+     * @see UserDAO
+     * @return List of users
+     * @throws DAOException Thrown when in Data Access Object(DAO) error occurs.
+     */
     @Override
     public ArrayList<User> getUserList() throws DAOException {
         ArrayList<User> list = null;
@@ -43,7 +42,11 @@ public class FileUserDAO implements UserDAO {
         }
         return list;
     }
-
+    /**
+     * @see UserDAO
+     * @param list List of users
+     * @throws DAOException Thrown when in Data Access Object(DAO) error occurs.
+     */
     @Override
     public void setUserList(ArrayList<User> list) throws DAOException {
         try(FileOutputStream stream = new FileOutputStream(PATH);

@@ -1,39 +1,46 @@
-package com.bsuir.library.controller.command.implantation;
+package com.bsuir.library.controller.command.implementation;
 import com.bsuir.library.controller.command.Command;
-import com.bsuir.library.domain.Book;
+
 import com.bsuir.library.service.BookService;
 import com.bsuir.library.service.ServiceFactory;
 import com.bsuir.library.service.exception.ServiceException;
-import com.bsuir.library.view.implementation.ConsoleView;
+import com.bsuir.library.view.Reader;
+import com.bsuir.library.view.View;
+import com.bsuir.library.view.ViewFactory;
 
-import java.util.Scanner;
 
 import static com.bsuir.library.view.Constant.*;
 
+/**
+ * The class that implements the command interface allows you to add books.
+ */
 public class AddBookCommand implements Command{
 
+    /**
+     * @see Command interface
+     */
     @Override
-    public void execute(String request) {
+    public void execute() {
         String author;
         String title;
         int count;
         boolean eBook = false;
         view.outputLine(BookAuth.getName());
-        author = in.nextLine().trim();
+        author = reader.dataInputString();
         view.outputLine(BookTitle.getName());
-        title = in.nextLine().trim();
+        title = reader.dataInputString();
         view.outputLine(Ebook.getName());
-        String ebookStr = in.nextLine().trim();
-        int eBookInt = Integer.parseInt(ebookStr);
+        int eBookInt = reader.dataInputInt();
         if (eBookInt == 1){
             eBook = true;
         }
         view.outputLine(BookCount.getName());
-        count = Integer.parseInt(in.nextLine().trim());
+        count = reader.dataInputInt();
+        if (count<0){
+            count = 0;
+        }
         boolean result = true;
         try{
-            ServiceFactory factory = ServiceFactory.getInstance();
-            BookService bookService = factory.getBookService();
             result = bookService.addBook(author,title,count,eBook);
         }catch (ServiceException e){
             view.showErrorInfo(e.getMessage());
@@ -47,11 +54,18 @@ public class AddBookCommand implements Command{
         }
 
     }
+
     public AddBookCommand(){
-        view = new ConsoleView();
-        in = new Scanner(System.in);
+        ViewFactory factory = ViewFactory.getInstance();
+        ServiceFactory serviceFactory = ServiceFactory.getInstance();
+        bookService = serviceFactory.getBookService();
+        view  = factory.getView();
+        reader = factory.getReader();
     }
-    private ConsoleView view;
-    private Scanner in;
+
+
+    private BookService bookService;
+    private View view;
+    private Reader reader;
 
 }

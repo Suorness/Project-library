@@ -1,7 +1,12 @@
-package com.bsuir.library.domain;
+package com.bsuir.library.domain.User;
 
+/**
+ * this class summarizes information about the user
+ */
 public class User implements java.io.Serializable{
-
+    /**
+     * Enumeration of available roles
+     */
     public enum Role {GUEST,ADMIN,USER}
 
     private String login;
@@ -20,9 +25,18 @@ public class User implements java.io.Serializable{
         this.role = Role.USER;
     }
 
+    /**
+     * Getting the role
+     * @return Current user role
+     */
     public Role getRole(){
         return  role;
     }
+
+    /**
+     * Calculates the hash value of a function
+     * @return value of the hash function
+     */
     @Override
     public int hashCode() {
         int result = 17;
@@ -30,6 +44,12 @@ public class User implements java.io.Serializable{
         result = prime * result + login.hashCode();
         return result;
     }
+
+    /**
+     * Compares objects
+     * @param obj  object to compare
+     * @return comparison result
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -49,13 +69,7 @@ public class User implements java.io.Serializable{
         } else if (!login.equals(userOnCheck.login)) {
             return false;
         }
-//        if (hash == null) {
-//            if (userOnCheck.hash != null) {
-//                return false;
-//            }
-//        } else if (!hash.equals(userOnCheck.hash)) {
-//            return false;
-//        }
+
         return true;
     }
 

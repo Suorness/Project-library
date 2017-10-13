@@ -1,7 +1,10 @@
 package com.bsuir.library.view.implementation;
 
 import com.bsuir.library.domain.Book;
-import com.bsuir.library.domain.User;
+import com.bsuir.library.domain.User.RoleCommands.AdminCommands;
+import com.bsuir.library.domain.User.RoleCommands.GuestCommands;
+import com.bsuir.library.domain.User.RoleCommands.UserCommands;
+import com.bsuir.library.domain.User.User;
 import com.bsuir.library.view.View;
 
 import java.util.List;
@@ -10,90 +13,10 @@ import java.util.List;
 import static com.bsuir.library.view.Constant.*;
 
 public class ConsoleView implements View {
-
-    public enum GuestCommands{
-        SIGNUP(0,SignUp.getName()),SIGNIN(1, SignIn.getName()),EXIT(2, Exit.getName());
-
-        private int index;
-        private String name;
-        GuestCommands(int value,String name){
-            index=value;
-            this.name=name;
-        }
-        public static GuestCommands getIndex(int value){
-            for (GuestCommands command: GuestCommands.values()){
-                if (value==command.getIndex()){
-                    return command;
-                }
-            }
-            return null;
-
-        }
-        public String getCommandName(){
-            return name;
-        }
-
-        public int getIndex() {
-            return index;
-        }
-
-    }
-    public enum AdminCommands{
-        SHOWLIST(0,ShowList.getName()),SEARCH(1, Search.getName()),LOGOUT(2,LogOut.getName()),
-                ADDBOOK(3,AddBook.getName()),DELBOOK(4,DelBook.getName()),EXIT(5, Exit.getName());
-
-        private int index;
-        private String name;
-        AdminCommands(int value,String name){
-            index=value;
-            this.name=name;
-        }
-        public static AdminCommands getIndex(int value){
-            for (AdminCommands command: AdminCommands.values()){
-                if (value==command.getIndex()){
-                    return command;
-                }
-            }
-            return null;
-
-        }
-        public String getCommandName(){
-            return name;
-        }
-
-        public int getIndex() {
-            return index;
-        }
-
-    }
-    public enum UserCommands{
-        SHOWLIST(0,ShowList.getName()),SEARCH(1, Search.getName()),LOGOUT(2,LogOut.getName()),EXIT(3, Exit.getName());
-
-        private int index;
-        private String name;
-        UserCommands(int value,String name){
-            index=value;
-            this.name=name;
-        }
-        public static UserCommands getIndex(int value){
-            for (UserCommands command: UserCommands.values()){
-                if (value==command.getIndex()){
-                    return command;
-                }
-            }
-            return null;
-
-        }
-        public String getCommandName(){
-            return name;
-        }
-
-        public int getIndex() {
-            return index;
-        }
-
-    }
-
+    /**
+     * displays a list of commands for the user type
+     * @param userRole user role
+     */
     @Override
     public void showListCommand(User.Role userRole){
         String resultString=ChooseOperation.getName() + "\r\n";
@@ -117,6 +40,10 @@ public class ConsoleView implements View {
         outputLine(resultString);
 
     }
+    /**
+     * displays a list of books
+     * @param list  list of books
+     */
     @Override
     public void showList(List<Book>  list){
         String resultOutPut = "";
@@ -127,17 +54,30 @@ public class ConsoleView implements View {
         outputLine(resultOutPut);
 
     }
+    /**
+     * Displays book information
+     * @param book  instanse book
+     */
     @Override
-    public void ShowBookInfo(Book book){
+    public void showBookInfo(Book book){
         String resultOutPut = "";
         resultOutPut +=  book.getTitle() +  " " + book.getAuthor() + "  count: " +
                 book.getCount() + "\r\n";
         outputLine(resultOutPut);
     }
+
+    /**
+     * Prints a line of text
+     * @param str String for output
+     */
     @Override
     public void outputLine(String str){
         System.out.println(str);
     }
+    /**
+     * Displays the error message
+     * @param message error message
+     */
     @Override
     public void showErrorInfo(String message ){
         System.err.println(message);

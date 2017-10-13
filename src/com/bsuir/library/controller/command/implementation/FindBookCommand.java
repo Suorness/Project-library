@@ -1,31 +1,35 @@
-package com.bsuir.library.controller.command.implantation;
+package com.bsuir.library.controller.command.implementation;
 
 import com.bsuir.library.controller.command.Command;
 import com.bsuir.library.domain.Book;
 import com.bsuir.library.service.BookService;
 import com.bsuir.library.service.ServiceFactory;
 import com.bsuir.library.service.exception.ServiceException;
-import com.bsuir.library.view.implementation.ConsoleView;
+import com.bsuir.library.view.Reader;
+import com.bsuir.library.view.View;
+import com.bsuir.library.view.ViewFactory;
 
-import java.util.Scanner;
 
 import static com.bsuir.library.view.Constant.BookAuth;
 import static com.bsuir.library.view.Constant.BookNotFount;
 import static com.bsuir.library.view.Constant.BookTitle;
-
+/**
+ * The class that implements the command interface allows you to find book in catalog.
+ */
 public class FindBookCommand implements Command{
+    /**
+     * @see Command interface
+     */
     @Override
-    public void execute(String request) {
-        ServiceFactory factory = ServiceFactory.getInstance();
-        BookService bookService = factory.getBookService();
+    public void execute() {
         Book book = null;
         String title;
         String author;
 
         view.outputLine(BookAuth.getName());
-        author = in.nextLine().trim();
+        author = reader.dataInputString();
         view.outputLine(BookTitle.getName());
-        title = in.nextLine().trim();
+        title = reader.dataInputString();
 
         try {
             book = bookService.findBook(title,author);
@@ -33,7 +37,7 @@ public class FindBookCommand implements Command{
             view.showErrorInfo(e.getMessage());
         }
         if (book!=null){
-            view.ShowBookInfo(book);
+            view.showBookInfo(book);
         }
         else{
             view.outputLine(BookNotFount.getName());
@@ -41,9 +45,13 @@ public class FindBookCommand implements Command{
 
     }
     public FindBookCommand(){
-        view = new ConsoleView();
-        in = new Scanner(System.in);
+        ViewFactory factory = ViewFactory.getInstance();
+        ServiceFactory serviceFactory = ServiceFactory.getInstance();
+        bookService = serviceFactory.getBookService();
+        view  = factory.getView();
+        reader = factory.getReader();
     }
-    private ConsoleView view;
-    private Scanner in;
+    private BookService bookService;
+    private View view;
+    private Reader reader;
 }

@@ -3,8 +3,7 @@ package com.bsuir.library.service.implementation;
 import com.bsuir.library.dao.DAOFactory;
 import com.bsuir.library.dao.UserDAO;
 import com.bsuir.library.dao.exception.DAOException;
-import com.bsuir.library.domain.User;
-import com.bsuir.library.service.ServiceFactory;
+import com.bsuir.library.domain.User.User;
 import com.bsuir.library.service.UserService;
 import com.bsuir.library.service.exception.ServiceException;
 
@@ -14,14 +13,22 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class implementing the mechanism of working with users
+ */
 public class UserServiceImpl implements UserService {
 
-    private User user = null;
-    private static UserServiceImpl instance = new UserServiceImpl();
+
     public static UserServiceImpl getInstance() {
         return instance;
     }
-
+    /**
+     * User Registration Function
+     * @param login user login
+     * @param password user password
+     * @return true - registered, false - not registered
+     * @throws ServiceException Thrown when in Service error occurs.
+     */
     @Override
     public boolean register(String login, String password) throws ServiceException {
 
@@ -47,7 +54,13 @@ public class UserServiceImpl implements UserService {
         }
         return true;
     }
-
+    /**
+     * Login function
+     * @param login user login
+     * @param password user password
+     * @return true - logged in, false - not logged in
+     * @throws ServiceException Thrown when in Service error occurs.
+     */
     @Override
     public boolean logIn(String login, String password) throws ServiceException {
         boolean result = false;
@@ -69,7 +82,10 @@ public class UserServiceImpl implements UserService {
         return result;
 
     }
-
+    /**
+     *  Sign Out
+     * @throws ServiceException Thrown when in Service error occurs.
+     */
     @Override
     public void logOut() throws ServiceException {
         user = null;
@@ -97,4 +113,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    private User user = null;
+    private static UserServiceImpl instance = new UserServiceImpl();
 }
