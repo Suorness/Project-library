@@ -3,6 +3,8 @@ package com.bsuir.library.service;
 import com.bsuir.library.service.exception.ServiceException;
 import com.bsuir.library.domain.User.User;
 
+import java.util.List;
+
 /**
  * The UserService should be implemented by any class that provides access to work with user
  */
@@ -36,4 +38,5 @@ public interface UserService {
      * @return user role
      */
     User.Role getCurrentRole();
+    List<User> getUserList()throws ServiceException;
 }

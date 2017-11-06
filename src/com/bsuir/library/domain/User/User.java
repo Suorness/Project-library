@@ -72,5 +72,8 @@ public class User implements java.io.Serializable{
 
         return true;
     }
-
+    public String getEmail(){
+        return  email;
+    }
+    private String email;
 }

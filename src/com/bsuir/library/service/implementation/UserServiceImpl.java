@@ -98,6 +98,21 @@ public class UserServiceImpl implements UserService {
         else
             return user.getRole();
     }
+
+    @Override
+    public List<User> getUserList() throws ServiceException {
+        DAOFactory factory = DAOFactory.getInstance();
+        UserDAO userDAO = factory.getUserDAO();
+        List<User> list;
+        try{
+            list = userDAO.getUserList();
+        }catch (DAOException e){
+            throw new ServiceException(e);
+        }
+        return list;
+    }
+
+
     private String getHash(String string){
         MessageDigest md = null;
         String hashValue="";

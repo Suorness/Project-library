@@ -1,4 +1,5 @@
 package com.bsuir.library.controller.command.implementation;
+
 import com.bsuir.library.controller.command.Command;
 
 import com.bsuir.library.service.BookService;
@@ -14,7 +15,7 @@ import static com.bsuir.library.view.Constant.*;
 /**
  * The class that implements the command interface allows you to add books.
  */
-public class AddBookCommand implements Command{
+public class AddBookCommand implements Command {
 
     /**
      * @see Command interface
@@ -31,35 +32,33 @@ public class AddBookCommand implements Command{
         title = reader.dataInputString();
         view.outputLine(Ebook.getName());
         int eBookInt = reader.dataInputInt();
-        if (eBookInt == 1){
+        if (eBookInt == 1) {
             eBook = true;
         }
         view.outputLine(BookCount.getName());
         count = reader.dataInputInt();
-        if (count<0){
+        if (count < 0) {
             count = 0;
         }
         boolean result = true;
-        try{
-            result = bookService.addBook(author,title,count,eBook);
-        }catch (ServiceException e){
+        try {
+            result = bookService.addBook(author, title, count, eBook);
+        } catch (ServiceException e) {
             view.showErrorInfo(e.getMessage());
         }
-        if (result){
+        if (result) {
             view.outputLine(BookAdd.getName());
-        }
-        else
-        {
+        } else {
             view.outputLine(BookAddFail.getName());
         }
 
     }
 
-    public AddBookCommand(){
+    public AddBookCommand() {
         ViewFactory factory = ViewFactory.getInstance();
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         bookService = serviceFactory.getBookService();
-        view  = factory.getView();
+        view = factory.getView();
         reader = factory.getReader();
     }
 

@@ -142,7 +142,6 @@ public class Book implements  java.io.Serializable{
         return true;
     }
 
-
     private String author;
     private String title;
     private int id;

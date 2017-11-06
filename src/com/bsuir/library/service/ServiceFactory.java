@@ -1,6 +1,7 @@
 package com.bsuir.library.service;
 
 import com.bsuir.library.service.implementation.BookServiceImpl;
+import com.bsuir.library.service.implementation.MailServiceImpl;
 import com.bsuir.library.service.implementation.UserServiceImpl;
 /**
  * This is an class that provides access to the service mechanism BookService and UserService
@@ -11,7 +12,6 @@ public class ServiceFactory {
 
     private final BookService bookService = new BookServiceImpl();
     private final UserService userService = UserServiceImpl.getInstance();//new UserServiceImpl();
-
     private ServiceFactory() {
     }
     /**
@@ -34,5 +34,8 @@ public class ServiceFactory {
      */
     public UserService getUserService() {
         return userService;
+    }
+    public MailService getMailService(){
+        return MailServiceImpl.getInstance();
     }
 }

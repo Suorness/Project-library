@@ -10,6 +10,7 @@ import com.bsuir.library.view.ViewFactory;
 
 
 import static com.bsuir.library.view.Constant.*;
+
 /**
  * The class that implements the command interface allows you sign in.
  */
@@ -28,24 +29,24 @@ public class SignInCommand implements Command {
         boolean result = false;
         try {
             result = userService.logIn(login, passWord);
-        }catch (ServiceException exc){
+        } catch (ServiceException exc) {
             view.showErrorInfo(exc.getMessage());
         }
-        if (result){
+        if (result) {
             view.outputLine(SuccessAut.getName());
-        }
-        else
-        {
+        } else {
             view.outputLine(FailAut.getName());
         }
     }
-    public SignInCommand(){
+
+    public SignInCommand() {
         ViewFactory factory = ViewFactory.getInstance();
-        view  = factory.getView();
+        view = factory.getView();
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         userService = serviceFactory.getUserService();
         reader = factory.getReader();
     }
+
     private UserService userService;
     private View view;
     private Reader reader;
